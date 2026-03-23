@@ -6,500 +6,759 @@
     <title>Maxwell Ma | Robotics & AI Researcher</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-card: #1a1a24;
-            --accent-cyan: #00d4ff;
-            --accent-magenta: #ff0080;
-            --accent-green: #00ff9d;
-            --text-primary: #f0f0f5;
-            --text-secondary: #8888a0;
-            --text-muted: #5555666;
-            --border-color: #2a2a3a;
-            --glow-cyan: rgba(0, 212, 255, 0.15);
-            --glow-magenta: rgba(255, 0, 128, 0.1);
+            --bg: #080810;
+            --bg2: #0d0d18;
+            --bg3: #121220;
+            --card: #14141f;
+            --card2: #1a1a2a;
+            --border: #1e1e30;
+            --border2: #2a2a3e;
+            --cyan: #00d4ff;
+            --cyan-dim: rgba(0,212,255,0.12);
+            --amber: #ffb340;
+            --amber-dim: rgba(255,179,64,0.12);
+            --green: #00e5a0;
+            --magenta: #ff3d8a;
+            --text: #e8e8f0;
+            --text2: #9090b0;
+            --text3: #5a5a7a;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Outfit', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
+        *{margin:0;padding:0;box-sizing:border-box;}
+        html{scroll-behavior:smooth;}
+        body{
+            font-family:'DM Sans',sans-serif;
+            background:var(--bg);
+            color:var(--text);
+            line-height:1.65;
+            overflow-x:hidden;
         }
 
-        .bg-grid {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 0;
-            background-image:
-                linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            animation: gridMove 20s linear infinite;
+        /* Atmosphere */
+        .bg-lines{
+            position:fixed;top:0;left:0;width:100%;height:100%;
+            pointer-events:none;z-index:0;
+            background-image:linear-gradient(rgba(0,212,255,.018) 1px,transparent 1px),
+                             linear-gradient(90deg,rgba(0,212,255,.018) 1px,transparent 1px);
+            background-size:72px 72px;
         }
-        @keyframes gridMove { 0% { background-position: 0 0; } 100% { background-position: 60px 60px; } }
+        .orb{position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:0;}
+        .orb-a{width:500px;height:500px;background:rgba(0,212,255,.07);top:-80px;right:-60px;animation:f1 20s ease-in-out infinite;}
+        .orb-b{width:350px;height:350px;background:rgba(255,179,64,.06);bottom:10%;left:-80px;animation:f2 25s ease-in-out infinite;}
+        .orb-c{width:250px;height:250px;background:rgba(255,61,138,.05);top:50%;right:20%;animation:f1 30s ease-in-out infinite reverse;}
+        @keyframes f1{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,40px)}}
+        @keyframes f2{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-30px)}}
 
-        .orb { position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
-        .orb-1 { width: 400px; height: 400px; background: var(--glow-cyan); top: 10%; right: 10%; animation: float1 15s ease-in-out infinite; }
-        .orb-2 { width: 300px; height: 300px; background: var(--glow-magenta); bottom: 20%; left: 5%; animation: float2 18s ease-in-out infinite; }
-        @keyframes float1 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-30px, 30px); } }
-        @keyframes float2 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(20px, -20px); } }
-
-        nav {
-            position: fixed; top: 0; width: 100%; padding: 1.5rem 3rem;
-            display: flex; justify-content: space-between; align-items: center;
-            z-index: 100; background: rgba(10, 10, 15, 0.8);
-            backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-color);
+        /* Nav */
+        nav{
+            position:fixed;top:0;width:100%;z-index:100;
+            padding:1.1rem 3.5rem;display:flex;justify-content:space-between;align-items:center;
+            background:rgba(8,8,16,.88);backdrop-filter:blur(28px);
+            border-bottom:1px solid var(--border);
         }
-        .logo { font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; font-weight: 500; color: var(--accent-cyan); letter-spacing: 2px; }
-        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 400; transition: all 0.3s ease; position: relative; }
-        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--accent-cyan); transition: width 0.3s ease; }
-        .nav-links a:hover { color: var(--text-primary); }
-        .nav-links a:hover::after { width: 100%; }
-
-        main { position: relative; z-index: 1; }
-        section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
-
-        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 80px; }
-        .hero-label { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--accent-cyan); letter-spacing: 3px; margin-bottom: 1.5rem; opacity: 0; animation: fadeSlideUp 0.8s ease forwards 0.2s; }
-        .hero h1 { font-size: clamp(3rem, 8vw, 5.5rem); font-weight: 700; line-height: 1.1; margin-bottom: 1.5rem; opacity: 0; animation: fadeSlideUp 0.8s ease forwards 0.4s; }
-        .hero h1 .highlight { background: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .hero-subtitle { font-size: 1.25rem; color: var(--text-secondary); max-width: 600px; margin-bottom: 2.5rem; opacity: 0; animation: fadeSlideUp 0.8s ease forwards 0.6s; }
-        .hero-cta { display: flex; gap: 1rem; opacity: 0; animation: fadeSlideUp 0.8s ease forwards 0.8s; }
-        .btn { padding: 0.9rem 2rem; font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 500; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; }
-        .btn-primary { background: linear-gradient(135deg, var(--accent-cyan), #0099cc); color: var(--bg-primary); border: none; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3); }
-        .btn-secondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border-color); }
-        .btn-secondary:hover { border-color: var(--accent-cyan); background: rgba(0, 212, 255, 0.05); }
-        @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
-        .section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 3rem; }
-        .section-number { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--accent-cyan); }
-        .section-title { font-size: 1.8rem; font-weight: 600; }
-        .section-line { flex-grow: 1; height: 1px; background: var(--border-color); max-width: 300px; }
-
-        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-        .about-text p { color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1.05rem; }
-        .about-highlights { display: grid; gap: 1.5rem; }
-        .highlight-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; transition: all 0.3s ease; }
-        .highlight-card:hover { border-color: var(--accent-cyan); transform: translateX(5px); }
-        .highlight-card h4 { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--accent-cyan); margin-bottom: 0.5rem; letter-spacing: 1px; }
-        .highlight-card p { color: var(--text-primary); font-weight: 500; }
-
-        .experience-grid { display: flex; flex-direction: column; gap: 2rem; }
-        .exp-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem; transition: all 0.3s ease; position: relative; overflow: hidden; }
-        .exp-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: linear-gradient(180deg, var(--accent-cyan), var(--accent-magenta)); opacity: 0; transition: opacity 0.3s ease; }
-        .exp-card:hover { border-color: var(--accent-cyan); transform: translateY(-3px); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); }
-        .exp-card:hover::before { opacity: 1; }
-
-        /* Independent Research card special styling */
-        .exp-card.independent-research {
-            border-color: rgba(0, 255, 157, 0.2);
+        .logo{font-family:'JetBrains Mono',monospace;font-size:1.05rem;font-weight:500;color:var(--cyan);letter-spacing:2px;}
+        .nav-links{display:flex;gap:2rem;list-style:none;}
+        .nav-links a{
+            color:var(--text2);text-decoration:none;font-size:.875rem;
+            transition:color .25s;position:relative;
         }
-        .exp-card.independent-research::before {
-            background: linear-gradient(180deg, var(--accent-green), var(--accent-cyan));
-        }
-        .exp-card.independent-research:hover {
-            border-color: var(--accent-green);
-        }
-        .independent-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            background: rgba(0, 255, 157, 0.1);
-            border: 1px solid rgba(0, 255, 157, 0.3);
-            color: var(--accent-green);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            letter-spacing: 1.5px;
-            padding: 0.3rem 0.7rem;
-            border-radius: 4px;
-            margin-bottom: 0.8rem;
-        }
-        .independent-badge::before { content: '◆'; font-size: 0.6rem; }
-
-        .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem; }
-        .exp-title h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.3rem; }
-        .exp-title .company { color: var(--accent-cyan); font-weight: 500; }
-        .exp-title .company.green { color: var(--accent-green); }
-        .exp-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-secondary); text-align: right; }
-        .exp-description { color: var(--text-secondary); margin-bottom: 1.5rem; }
-        .exp-bullets { display: flex; flex-direction: column; gap: 0.8rem; }
-        .exp-bullet { display: flex; gap: 0.8rem; color: var(--text-secondary); font-size: 0.95rem; }
-        .exp-bullet::before { content: '→'; color: var(--accent-cyan); flex-shrink: 0; }
-        .exp-bullet.green::before { color: var(--accent-green); }
-
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-        .skill-category { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; transition: all 0.3s ease; }
-        .skill-category:hover { border-color: var(--accent-cyan); }
-        .skill-category h4 { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--accent-cyan); letter-spacing: 2px; margin-bottom: 1rem; text-transform: uppercase; }
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-        .skill-tag { background: rgba(0, 212, 255, 0.08); border: 1px solid rgba(0, 212, 255, 0.2); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem; color: var(--text-primary); transition: all 0.2s ease; }
-        .skill-tag:hover { background: rgba(0, 212, 255, 0.15); border-color: var(--accent-cyan); }
-
-        .education-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
-        .edu-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem; transition: all 0.3s ease; }
-        .edu-card:hover { border-color: var(--accent-cyan); }
-        .edu-degree { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.3rem; }
-        .edu-school { color: var(--accent-cyan); font-weight: 500; margin-bottom: 0.5rem; }
-        .edu-date { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1rem; }
-        .edu-achievement { display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.9rem; }
-        .edu-achievement::before { content: '★'; color: var(--accent-green); }
-
-        .honors-list { display: flex; flex-direction: column; gap: 1rem; }
-        .honor-item { display: flex; align-items: center; gap: 1rem; padding: 1.2rem 1.5rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; transition: all 0.3s ease; }
-        .honor-item:hover { border-color: var(--accent-green); transform: translateX(5px); }
-        .honor-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
-        .honor-text { flex-grow: 1; }
-        .honor-text h4 { font-weight: 500; margin-bottom: 0.2rem; }
-        .honor-text span { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-secondary); }
-
-        .contact-content { text-align: center; max-width: 600px; margin: 0 auto; }
-        .contact-content h2 { font-size: 2.5rem; margin-bottom: 1rem; }
-        .contact-content p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2rem; }
-        .contact-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
-        .contact-link { display: flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.5rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; transition: all 0.3s ease; }
-        .contact-link:hover { border-color: var(--accent-cyan); background: rgba(0, 212, 255, 0.05); }
-
-        footer { text-align: center; padding: 3rem; border-top: 1px solid var(--border-color); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-secondary); }
-
-        @media (max-width: 768px) {
-            nav { padding: 1rem 1.5rem; }
-            .nav-links { display: none; }
-            section { padding: 4rem 1.5rem; }
-            .about-content { grid-template-columns: 1fr; gap: 2rem; }
-            .exp-header { flex-direction: column; }
-            .exp-meta { text-align: left; }
-            .education-grid { grid-template-columns: 1fr; }
-            .contact-links { flex-direction: column; align-items: center; }
+        .nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--cyan);transition:width .25s;}
+        .nav-links a:hover{color:var(--text);}
+        .nav-links a:hover::after{width:100%;}
+        .nav-badge{
+            font-family:'JetBrains Mono',monospace;font-size:.68rem;
+            background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.3);
+            color:var(--green);padding:.2rem .6rem;border-radius:4px;letter-spacing:1px;
         }
 
-        .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        /* Page shell */
+        main{position:relative;z-index:1;}
+        .wrap{max-width:1240px;margin:0 auto;padding:0 3rem;}
+
+        /* Hero */
+        .hero{
+            padding:120px 0 56px;
+            display:grid;grid-template-columns:1fr auto;
+            gap:3rem;align-items:end;
+            border-bottom:1px solid var(--border);
+        }
+        .hero-eyebrow{
+            display:inline-flex;align-items:center;gap:.6rem;
+            font-family:'JetBrains Mono',monospace;font-size:.72rem;
+            color:var(--cyan);letter-spacing:2.5px;margin-bottom:1.2rem;
+            opacity:0;animation:up .7s ease forwards .1s;
+        }
+        .hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--cyan);}
+        .hero h1{
+            font-family:'Syne',sans-serif;
+            font-size:clamp(2.6rem,6vw,4.5rem);
+            font-weight:800;line-height:1.05;
+            letter-spacing:-.02em;margin-bottom:1.2rem;
+            opacity:0;animation:up .7s ease forwards .25s;
+        }
+        .hero h1 em{
+            font-style:normal;
+            background:linear-gradient(125deg,var(--cyan) 20%,var(--magenta) 80%);
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+        }
+        .hero-sub{
+            font-size:1.05rem;color:var(--text2);max-width:540px;
+            margin-bottom:2rem;
+            opacity:0;animation:up .7s ease forwards .4s;
+        }
+        .hero-cta{
+            display:flex;gap:.8rem;flex-wrap:wrap;
+            opacity:0;animation:up .7s ease forwards .55s;
+        }
+        .btn{
+            padding:.72rem 1.6rem;border-radius:7px;font-family:'DM Sans',sans-serif;
+            font-size:.9rem;font-weight:500;cursor:pointer;text-decoration:none;
+            transition:all .25s;display:inline-flex;align-items:center;gap:.5rem;
+        }
+        .btn-c{background:linear-gradient(135deg,var(--cyan),#0096cc);color:#08080f;border:none;}
+        .btn-c:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,212,255,.3);}
+        .btn-o{background:transparent;color:var(--text);border:1px solid var(--border2);}
+        .btn-o:hover{border-color:var(--cyan);background:var(--cyan-dim);}
+        .btn-a{background:rgba(255,179,64,.1);color:var(--amber);border:1px solid rgba(255,179,64,.3);}
+        .btn-a:hover{background:rgba(255,179,64,.18);box-shadow:0 4px 20px rgba(255,179,64,.15);}
+
+        .hero-right{
+            text-align:right;
+            opacity:0;animation:up .7s ease forwards .65s;
+        }
+        .stat-grid{display:grid;gap:.6rem;}
+        .stat-item{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--text3);}
+        .stat-item span{color:var(--text2);}
+        .stat-item strong{color:var(--text);font-weight:500;}
+        @keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+        /* Section headers */
+        .sec-head{display:flex;align-items:center;gap:.9rem;margin-bottom:2.4rem;}
+        .sec-num{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--cyan);}
+        .sec-title{font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:700;letter-spacing:-.01em;}
+        .sec-rule{flex:1;height:1px;background:var(--border);max-width:280px;}
+
+        /* Body grid */
+        .body-grid{
+            display:grid;
+            grid-template-columns:1.15fr 1fr;
+            gap:4rem;
+            padding:3rem 0;
+        }
+        .col{display:flex;flex-direction:column;gap:3.5rem;}
+
+        /* ── PROJECT CARDS ── */
+        .project-card{
+            border-radius:16px;overflow:hidden;
+            border:1px solid var(--border);
+            background:var(--card);
+            transition:all .3s ease;
+            position:relative;
+        }
+        .project-card:hover{border-color:var(--border2);box-shadow:0 12px 48px rgba(0,0,0,.35);}
+        .proj-iros{border-top:2px solid var(--cyan);}
+        .proj-iros:hover{box-shadow:0 12px 48px rgba(0,212,255,.08);}
+        .proj-vla{border-top:2px solid var(--amber);}
+        .proj-vla:hover{box-shadow:0 12px 48px rgba(255,179,64,.08);}
+
+        .proj-header{padding:1.6rem 1.8rem 0;}
+        .proj-venue-row{display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;flex-wrap:wrap;}
+        .venue-badge{
+            font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:1.5px;
+            padding:.28rem .7rem;border-radius:4px;display:inline-flex;align-items:center;gap:.35rem;
+        }
+        .venue-iros{background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.3);color:var(--cyan);}
+        .venue-iros::before{content:'◆';font-size:.55rem;}
+        .venue-ra{background:rgba(255,179,64,.1);border:1px solid rgba(255,179,64,.3);color:var(--amber);}
+        .venue-ra::before{content:'◈';font-size:.6rem;}
+        .venue-sub{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--text3);}
+
+        .proj-title{
+            font-family:'Syne',sans-serif;font-size:1.18rem;font-weight:700;
+            letter-spacing:-.01em;line-height:1.35;margin-bottom:.8rem;
+        }
+        .proj-title.cyan em{font-style:normal;color:var(--cyan);}
+        .proj-title.amber em{font-style:normal;color:var(--amber);}
+
+        .proj-body{padding:0 1.8rem 1.6rem;}
+
+        .proj-abstract{
+            font-size:.9rem;color:var(--text2);line-height:1.72;
+            margin-bottom:1.4rem;
+            padding:1rem 1.2rem;
+            background:var(--bg2);
+            border-radius:8px;
+            border-left:2px solid var(--border2);
+        }
+        .proj-abstract.cb{border-left-color:rgba(0,212,255,.35);}
+        .proj-abstract.ab{border-left-color:rgba(255,179,64,.35);}
+
+        /* Contributions */
+        .contrib-list{display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.4rem;}
+        .contrib{display:flex;gap:.75rem;font-size:.875rem;color:var(--text2);line-height:1.55;}
+        .contrib-icon{
+            flex-shrink:0;width:20px;height:20px;border-radius:5px;
+            display:flex;align-items:center;justify-content:center;
+            font-size:.65rem;margin-top:.15rem;font-weight:700;
+        }
+        .ci-c{background:rgba(0,212,255,.15);color:var(--cyan);}
+        .ci-a{background:rgba(255,179,64,.15);color:var(--amber);}
+
+        /* Results */
+        .results-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.4rem;}
+        .result-chip{
+            padding:.35rem .9rem;border-radius:6px;
+            font-family:'JetBrains Mono',monospace;font-size:.72rem;
+        }
+        .rc-c{background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);color:var(--cyan);}
+        .rc-g{background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);color:var(--green);}
+
+        /* Pipeline steps */
+        .pipeline{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.4rem;}
+        .pipe-step{
+            display:flex;align-items:flex-start;gap:.8rem;
+            padding:.75rem 1rem;background:var(--bg2);border-radius:8px;
+            border:1px solid var(--border);transition:border-color .25s;
+        }
+        .pipe-step:hover{border-color:rgba(255,179,64,.25);}
+        .pipe-num{
+            font-family:'JetBrains Mono',monospace;font-size:.7rem;
+            color:var(--amber);font-weight:500;margin-top:.05rem;flex-shrink:0;width:18px;
+        }
+        .pipe-text h5{font-size:.88rem;font-weight:500;margin-bottom:.18rem;color:var(--text);}
+        .pipe-text p{font-size:.8rem;color:var(--text2);line-height:1.5;}
+
+        /* Tech tags */
+        .proj-tech{
+            display:flex;flex-wrap:wrap;gap:.4rem;
+            padding-top:1rem;border-top:1px solid var(--border);
+        }
+        .tech-tag{
+            padding:.22rem .65rem;border-radius:5px;font-size:.78rem;
+            background:var(--bg2);border:1px solid var(--border);color:var(--text2);
+            transition:all .2s;
+        }
+        .tech-tag:hover{border-color:var(--border2);color:var(--text);}
+
+        /* Demo video */
+        .demo-wrap{
+            border-radius:14px;overflow:hidden;
+            border:1px solid var(--border);background:var(--card);
+        }
+        .demo-wrap:hover{border-color:var(--border2);}
+        .video-box{position:relative;background:#000;border-bottom:1px solid var(--border);}
+        .video-box video{width:100%;display:block;max-height:340px;object-fit:contain;}
+        .vid-chip{
+            position:absolute;top:10px;left:10px;
+            font-family:'JetBrains Mono',monospace;font-size:.67rem;letter-spacing:1.5px;
+            background:rgba(0,0,0,.75);backdrop-filter:blur(8px);
+            border:1px solid rgba(0,212,255,.35);color:var(--cyan);
+            padding:.25rem .65rem;border-radius:4px;
+        }
+        .vid-placeholder{
+            display:flex;flex-direction:column;align-items:center;justify-content:center;
+            gap:.6rem;padding:2.5rem;text-align:center;
+        }
+        .vid-placeholder .icon{font-size:2rem;}
+        .vid-placeholder p{font-size:.85rem;color:var(--text2);}
+        .vid-placeholder code{
+            font-family:'JetBrains Mono',monospace;font-size:.72rem;
+            background:var(--bg2);border:1px solid var(--border2);
+            color:var(--cyan);padding:.2rem .5rem;border-radius:4px;
+        }
+        .demo-meta{padding:1.2rem 1.5rem;}
+        .demo-meta h4{font-family:'Syne',sans-serif;font-size:1rem;font-weight:600;margin-bottom:.3rem;}
+        .demo-meta p{font-size:.85rem;color:var(--text2);margin-bottom:.9rem;}
+        .demo-tags{display:flex;flex-wrap:wrap;gap:.4rem;}
+        .dtag{
+            font-family:'JetBrains Mono',monospace;font-size:.72rem;
+            background:rgba(0,229,160,.07);border:1px solid rgba(0,229,160,.2);
+            color:var(--green);padding:.22rem .6rem;border-radius:5px;
+        }
+
+        /* Experience */
+        .exp-list{display:flex;flex-direction:column;gap:1.1rem;}
+        .exp{
+            background:var(--card);border:1px solid var(--border);
+            border-radius:12px;padding:1.3rem 1.5rem;
+            transition:all .25s;position:relative;overflow:hidden;
+        }
+        .exp::before{
+            content:'';position:absolute;top:0;left:0;width:3px;height:100%;
+            background:linear-gradient(180deg,var(--cyan),var(--magenta));
+            opacity:0;transition:opacity .25s;
+        }
+        .exp:hover{border-color:rgba(0,212,255,.3);transform:translateX(3px);}
+        .exp:hover::before{opacity:1;}
+        .exp-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.35rem;flex-wrap:wrap;}
+        .exp h3{font-size:.98rem;font-weight:600;}
+        .exp-co{font-size:.85rem;color:var(--cyan);font-weight:500;margin-bottom:.55rem;}
+        .exp-date{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text3);text-align:right;white-space:nowrap;}
+        .exp-bullets{display:flex;flex-direction:column;gap:.4rem;}
+        .eb{display:flex;gap:.6rem;font-size:.83rem;color:var(--text2);line-height:1.5;}
+        .eb::before{content:'→';color:var(--cyan);flex-shrink:0;font-size:.75rem;margin-top:.12rem;}
+
+        /* Skills */
+        .skills-grid{display:flex;flex-direction:column;gap:.8rem;}
+        .sk-row{
+            background:var(--card);border:1px solid var(--border);
+            border-radius:10px;padding:.95rem 1.2rem;transition:border-color .25s;
+        }
+        .sk-row:hover{border-color:var(--border2);}
+        .sk-label{
+            font-family:'JetBrains Mono',monospace;font-size:.67rem;
+            color:var(--cyan);letter-spacing:2px;text-transform:uppercase;margin-bottom:.55rem;
+        }
+        .sk-tags{display:flex;flex-wrap:wrap;gap:.35rem;}
+        .st{
+            background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.12);
+            padding:.22rem .6rem;border-radius:5px;font-size:.78rem;color:var(--text);
+            transition:all .18s;
+        }
+        .st:hover{background:rgba(0,212,255,.12);border-color:rgba(0,212,255,.3);}
+
+        /* Education */
+        .edu-list{display:flex;flex-direction:column;gap:.9rem;}
+        .edu{
+            background:var(--card);border:1px solid var(--border);
+            border-radius:10px;padding:1.1rem 1.3rem;transition:border-color .25s;
+        }
+        .edu:hover{border-color:rgba(0,212,255,.25);}
+        .edu-deg{font-size:.95rem;font-weight:600;margin-bottom:.2rem;}
+        .edu-school{font-size:.85rem;color:var(--cyan);font-weight:500;margin-bottom:.2rem;}
+        .edu-date{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text3);margin-bottom:.4rem;}
+        .edu-note{display:flex;align-items:center;gap:.4rem;font-size:.82rem;color:var(--text2);}
+        .edu-note::before{content:'★';color:var(--green);font-size:.7rem;}
+
+        .honors{display:flex;flex-direction:column;gap:.7rem;margin-top:.8rem;}
+        .honor{
+            display:flex;align-items:center;gap:.9rem;
+            padding:.9rem 1.1rem;background:var(--card);border:1px solid var(--border);
+            border-radius:9px;transition:all .25s;
+        }
+        .honor:hover{border-color:var(--green);transform:translateX(3px);}
+        .h-icon{
+            width:32px;height:32px;border-radius:7px;flex-shrink:0;
+            background:linear-gradient(135deg,var(--green),var(--cyan));
+            display:flex;align-items:center;justify-content:center;font-size:.9rem;
+        }
+        .h-title{font-size:.88rem;font-weight:500;margin-bottom:.1rem;}
+        .h-sub{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text3);}
+
+        /* Contact */
+        .contact-links{display:flex;gap:.8rem;flex-wrap:wrap;}
+        .clink{
+            display:flex;align-items:center;gap:.5rem;padding:.65rem 1.2rem;
+            background:var(--card);border:1px solid var(--border);border-radius:7px;
+            color:var(--text);text-decoration:none;
+            font-family:'JetBrains Mono',monospace;font-size:.8rem;transition:all .25s;
+        }
+        .clink:hover{border-color:var(--cyan);background:var(--cyan-dim);}
+
+        /* Footer */
+        footer{
+            text-align:center;padding:2rem 3rem;
+            border-top:1px solid var(--border);
+            font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--text3);
+        }
+
+        /* Fade in */
+        .fi{opacity:1;transform:none;animation:fadeUp .6s ease both;}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+        .fi.vis{opacity:1;transform:none;}
+
+        /* Responsive */
+        @media(max-width:960px){
+            .wrap{padding:0 1.5rem;}
+            nav{padding:1rem 1.5rem;}
+            .nav-links{gap:1.2rem;}
+            .hero{grid-template-columns:1fr;padding:100px 0 40px;}
+            .hero-right{text-align:left;}
+            .body-grid{grid-template-columns:1fr;gap:2.5rem;}
+        }
+        @media(max-width:600px){.nav-links{display:none;}}
     </style>
 </head>
 <body>
-    <div class="bg-grid"></div>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
+<div class="bg-lines"></div>
+<div class="orb orb-a"></div>
+<div class="orb orb-b"></div>
+<div class="orb orb-c"></div>
 
-    <nav>
-        <div class="logo">MAXWELL.MA</div>
-        <ul class="nav-links">
-            <li><a href="#about">About</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+<nav>
+    <div class="logo">MAXWELL.MA</div>
+    <ul class="nav-links">
+        <li><a href="#research">Research</a></li>
+        <li><a href="#demo">Demo</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+    <span class="nav-badge">IROS 2026 · UNDER REVIEW</span>
+</nav>
 
-    <main>
-        <section class="hero" id="home">
-            <span class="hero-label">ROBOTICS & AI RESEARCHER</span>
-            <h1>Hi, I'm <span class="highlight">Maxwell Ma</span></h1>
-            <p class="hero-subtitle">
-                Graduate researcher specializing in motion planning, vision-language-action systems, 
-                and sim-to-real robotics. Building intelligent systems that bridge simulation and reality.
+<main>
+<div class="wrap">
+
+    <!-- HERO -->
+    <div class="hero" id="home">
+        <div>
+            <div class="hero-eyebrow">ROBOTICS & AI RESEARCHER</div>
+            <h1>Hi, I'm <em>Maxwell Ma</em></h1>
+            <p class="hero-sub">
+                Graduate researcher at Rice University. I build intelligent robotic systems at the intersection
+                of physics-informed learning, visuo-tactile perception, and sim-to-real transfer.
             </p>
             <div class="hero-cta">
-                <a href="#contact" class="btn btn-primary">Get in Touch</a>
-                <a href="#experience" class="btn btn-secondary">View My Work</a>
+                <a href="#research" class="btn btn-c">↓ View Research</a>
+                <a href="#demo" class="btn btn-o">Watch Demo</a>
+                <a href="/cdn-cgi/l/email-protection#13627e222b53617a70763d767766" class="btn btn-a">Get in Touch</a>
             </div>
-        </section>
+        </div>
+        <div class="hero-right">
+            <div class="stat-grid">
+                <div class="stat-item">PROGRAM &nbsp;<strong>ECE · Rice University</strong></div>
+                <div class="stat-item">LOCATION &nbsp;<strong>Houston, TX</strong></div>
+                <div class="stat-item">RESEARCH &nbsp;<span>Manipulation · VLA · Motion Planning</span></div>
+                <div class="stat-item">INDUSTRY &nbsp;<span>3 yrs · Baidu AI</span></div>
+                <div class="stat-item">EMAIL &nbsp;&nbsp;&nbsp;&nbsp; <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b4c5d9858cf4c6ddd7d19ad1d0c1">[email&#160;protected]</a></span></div>
+            </div>
+        </div>
+    </div>
 
-        <section id="about">
-            <div class="section-header">
-                <span class="section-number">01</span>
-                <h2 class="section-title">About Me</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>
-                        I'm a graduate student in Electronic & Computer Engineering at Rice University, 
-                        passionate about pushing the boundaries of robotic intelligence through advanced 
-                        motion planning and machine learning.
-                    </p>
-                    <p>
-                        My research spans high-dimensional kinodynamic planning, vision-language-action 
-                        pipelines, and the challenging domain of sim-to-real transfer. I work at the 
-                        intersection of classical robotics algorithms and modern deep learning approaches.
-                    </p>
-                    <p>
-                        Before Rice, I spent three years at Baidu building production-scale AI systems, 
-                        including end-to-end LLM and RAG pipelines for enterprise applications. This 
-                        industry experience shapes my research with a focus on practical, deployable solutions.
-                    </p>
-                </div>
-                <div class="about-highlights">
-                    <div class="highlight-card">
-                        <h4>CURRENT FOCUS</h4>
-                        <p>Motion Planning & VLA Systems</p>
-                    </div>
-                    <div class="highlight-card">
-                        <h4>RESEARCH</h4>
-                        <p>Independent Research</p>
-                    </div>
-                    <div class="highlight-card">
-                        <h4>INDUSTRY EXP</h4>
-                        <p>3 Years at Baidu AI</p>
-                    </div>
-                    <div class="highlight-card">
-                        <h4>EXPERTISE</h4>
-                        <p>C++, Python, ROS 2, Isaac Sim</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- BODY GRID -->
+    <div class="body-grid">
 
-        <section id="experience">
-            <div class="section-header">
-                <span class="section-number">02</span>
-                <h2 class="section-title">Experience</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="experience-grid">
+        <!-- ═══ LEFT ═══ -->
+        <div class="col">
 
-                <!-- Independent Research (formerly Kavraki Lab RA) -->
-                <div class="exp-card independent-research fade-in">
-                    <div class="independent-badge">INDEPENDENT RESEARCH</div>
-                    <div class="exp-header">
-                        <div class="exp-title">
-                            <h3>Independent Researcher</h3>
-                            <span class="company green">Motion Planning & Kinodynamic Systems</span>
-                        </div>
-                        <div class="exp-meta">
-                            Aug 2025 - Present<br>Houston, TX
-                        </div>
-                    </div>
-                    <p class="exp-description">
-                        Self-directed research on high-dimensional, kinodynamic, and non-holonomic 
-                        motion planning, and task-motion planning under uncertainty, utilizing 
-                        state-of-the-art planning frameworks and simulation environments.
-                    </p>
-                    <div class="exp-bullets">
-                        <div class="exp-bullet green">Built OMPL pipelines in C++ for Dubins/Reeds-Shepp/car-like systems; evaluated RRT*, RRG, KPIECE, EST, BIT*, FMT* under custom objectives</div>
-                        <div class="exp-bullet green">Implemented Informed RRT*/RRG variants with admissible heuristics achieving 30% lower cost and 100× faster planning</div>
-                        <div class="exp-bullet green">Coupled symbolic task planners (PDDL/pyperplan) with OMPL for end-to-end task-feasible trajectory generation</div>
-                        <div class="exp-bullet green">Trained PPO/SAC controllers in NVIDIA Isaac Sim to track OMPL waypoints under model errors</div>
-                    </div>
+            <!-- Research Projects -->
+            <div id="research">
+                <div class="sec-head">
+                    <span class="sec-num">01</span>
+                    <h2 class="sec-title">Research Projects</h2>
+                    <div class="sec-rule"></div>
                 </div>
 
-                <!-- RobotII Lab RA -->
-                <div class="exp-card fade-in">
-                    <div class="exp-header">
-                        <div class="exp-title">
-                            <h3>Research Assistant</h3>
-                            <span class="company">RobotII Lab, Rice University</span>
+                <!-- PROJECT 1: IROS Paper -->
+                <div class="project-card proj-iros fi" style="margin-bottom:1.4rem">
+                    <div class="proj-header">
+                        <div class="proj-venue-row">
+                            <span class="venue-badge venue-iros">IROS 2026 · UNDER REVIEW</span>
+                            <span class="venue-sub">Submitted Feb 27, 2026 · Manuscript #737</span>
                         </div>
-                        <div class="exp-meta">
-                            Aug 2025 - Present<br>Houston, TX
+                        <h3 class="proj-title cyan">
+                            Vision–Tactile Mass Priors with Online<br>
+                            <em>Physics-Informed Grip Optimization</em><br>
+                            for Compliance-Robust Manipulation
+                        </h3>
+                    </div>
+                    <div class="proj-body">
+                        <div class="proj-abstract cb">
+                            A staged grasp-and-lift framework that performs <strong>online physical correction after contact</strong>:
+                            an IL base policy handles geometry-feasible approach and closure; a vision model predicts mass
+                            priors pre-contact; a tactile micro-lift estimates realized mass and mismatch Δm; and a compact
+                            PINN outputs grip force by explicitly penalizing friction-cone violation, force-bound violation,
+                            and compliance-related pressure concentration. Implemented on a torque-controlled
+                            <strong>Franka Emika Panda</strong> with RGB-D + capacitive tactile arrays on Jetson AGX Orin.
                         </div>
-                    </div>
-                    <p class="exp-description">
-                        Developing Vision-Language-Action pipelines and robot prototypes for 
-                        tabletop manipulation tasks.
-                    </p>
-                    <div class="exp-bullets">
-                        <div class="exp-bullet">Prototyped VLA pipelines with LeRobot; adapted Open-PI dataset for instruction-conditioned policies in PyTorch & JAX</div>
-                        <div class="exp-bullet">Tested open-source VLA models end-to-end in NVIDIA Isaac Sim, comparing success rate, trajectory length, and latency</div>
-                        <div class="exp-bullet">Built robot prototypes with ROS 2 for camera/pose streams, language prompt parsing, and action execution</div>
-                        <div class="exp-bullet">Established software architecture with reproducible training/eval scripts and CI for clean sim-to-real integration</div>
-                    </div>
-                </div>
 
-                <!-- Baidu -->
-                <div class="exp-card fade-in">
-                    <div class="exp-header">
-                        <div class="exp-title">
-                            <h3>Senior Strategy AI Algorithm Engineer</h3>
-                            <span class="company">Baidu</span>
+                        <div class="contrib-list">
+                            <div class="contrib">
+                                <div class="contrib-icon ci-c">①</div>
+                                <div>
+                                    <strong>Micro-lift realized-mass estimation.</strong> Short exploratory lift with quasi-static
+                                    windowing estimates realized mass mˆ_real = F̄z/g and prior–realized mismatch Δm
+                                    as an interpretable diagnostic that exposes when the vision prior is unreliable.
+                                </div>
+                            </div>
+                            <div class="contrib">
+                                <div class="contrib-icon ci-c">②</div>
+                                <div>
+                                    <strong>Online physics-informed grip optimizer (PINN).</strong> Compact MLP trained with
+                                    explicit penalty terms: Coulomb no-slip constraint, force-bound enforcement, and
+                                    compliance deformation safety — one controller for both hard and soft objects.
+                                </div>
+                            </div>
+                            <div class="contrib">
+                                <div class="contrib-icon ci-c">③</div>
+                                <div>
+                                    <strong>Modular state-machine decomposition.</strong>
+                                    (S1) pre-contact observe → (S2) approach/close → (S3) micro-lift estimation →
+                                    (S4) lift/hold with online grip optimization → (S5) slip recovery.
+                                    Geometry module is independently replaceable.
+                                </div>
+                            </div>
                         </div>
-                        <div class="exp-meta">
-                            Sep 2022 - Aug 2025<br>Beijing, China
+
+                        <div class="results-row">
+                            <span class="result-chip rc-g">86.3% Success ↑</span>
+                            <span class="result-chip rc-c">6% Slip Rate ↓</span>
+                            <span class="result-chip rc-c">239 N Peak Force ↓</span>
+                            <span class="result-chip rc-g">+9.3 pts vs best baseline</span>
+                            <span class="result-chip rc-c">−45 N vs Tactile Heuristic</span>
+                            <span class="result-chip rc-c">&lt;0.5 ms / PINN step</span>
+                        </div>
+
+                        <div class="proj-tech">
+                            <span class="tech-tag">Franka Panda</span>
+                            <span class="tech-tag">RealSense D455</span>
+                            <span class="tech-tag">Capacitive Tactile</span>
+                            <span class="tech-tag">PINN</span>
+                            <span class="tech-tag">Imitation Learning</span>
+                            <span class="tech-tag">ResNet-18</span>
+                            <span class="tech-tag">PointNet</span>
+                            <span class="tech-tag">ROS 2</span>
+                            <span class="tech-tag">Jetson AGX Orin</span>
+                            <span class="tech-tag">PyTorch</span>
                         </div>
                     </div>
-                    <p class="exp-description">
-                        Led development of an Intelligent Agent for the legal domain, building 
-                        end-to-end LLM + RAG systems for enterprise-grade applications.
-                    </p>
-                    <div class="exp-bullets">
-                        <div class="exp-bullet">Owned end-to-end training stack: domain-adaptive pre-training → SFT → RLHF (PPO) with comprehensive evaluation harness</div>
-                        <div class="exp-bullet">Built RAG pipeline with vector retrieval + semantic rerank + hybrid BM25, boosting answer quality +60% while cutting p95 latency -80%</div>
-                        <div class="exp-bullet">Led cross-functional pod (infra, data, legal SMEs): design docs, KPIs, annotation guidelines, weekly A/B reviews</div>
-                        <div class="exp-bullet">Implemented streaming indexing, caching, and quantization for production-scale deployment</div>
-                    </div>
                 </div>
-            </div>
-        </section>
 
-        <section id="skills">
-            <div class="section-header">
-                <span class="section-number">03</span>
-                <h2 class="section-title">Skills</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-category fade-in">
-                    <h4>Robotics & VLA</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">LeRobot</span>
-                        <span class="skill-tag">Open-PI</span>
-                        <span class="skill-tag">ROS 2</span>
-                        <span class="skill-tag">NVIDIA Isaac Sim</span>
-                        <span class="skill-tag">OMPL</span>
-                        <span class="skill-tag">RRT*</span>
-                        <span class="skill-tag">BIT*</span>
-                        <span class="skill-tag">Task-Motion Planning</span>
+                <!-- PROJECT 2: VLA LeRobot + OpenPI -->
+                <div class="project-card proj-vla fi">
+                    <div class="proj-header">
+                        <div class="proj-venue-row">
+                            <span class="venue-badge venue-ra">RA · RobotII Lab · Rice University</span>
+                            <span class="venue-sub">Aug 2025 – Present</span>
+                        </div>
+                        <h3 class="proj-title amber">
+                            <em>LeRobot × Open-PI</em> Integration —<br>
+                            Instruction-Conditioned VLA<br>for Tabletop Manipulation
+                        </h3>
                     </div>
-                </div>
-                <div class="skill-category fade-in">
-                    <h4>Deep Learning & RL</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">PyTorch</span>
-                        <span class="skill-tag">JAX</span>
-                        <span class="skill-tag">Transformers</span>
-                        <span class="skill-tag">Stable-Baselines3</span>
-                        <span class="skill-tag">PPO</span>
-                        <span class="skill-tag">SAC</span>
-                        <span class="skill-tag">TensorRT</span>
-                        <span class="skill-tag">ONNX</span>
-                    </div>
-                </div>
-                <div class="skill-category fade-in">
-                    <h4>LLM / GenAI</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Pre-training</span>
-                        <span class="skill-tag">SFT</span>
-                        <span class="skill-tag">RLHF</span>
-                        <span class="skill-tag">DPO</span>
-                        <span class="skill-tag">Prompt Engineering</span>
-                        <span class="skill-tag">Guardrails</span>
-                    </div>
-                </div>
-                <div class="skill-category fade-in">
-                    <h4>RAG & Search</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">FAISS</span>
-                        <span class="skill-tag">ScaNN</span>
-                        <span class="skill-tag">Milvus</span>
-                        <span class="skill-tag">BM25</span>
-                        <span class="skill-tag">LangChain</span>
-                        <span class="skill-tag">LlamaIndex</span>
-                    </div>
-                </div>
-                <div class="skill-category fade-in">
-                    <h4>Languages</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">C++</span>
-                        <span class="skill-tag">SQL</span>
-                        <span class="skill-tag">Bash</span>
-                        <span class="skill-tag">CUDA</span>
-                    </div>
-                </div>
-                <div class="skill-category fade-in">
-                    <h4>MLOps & Infra</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">Conda</span>
-                        <span class="skill-tag">FastAPI</span>
-                        <span class="skill-tag">AWS</span>
-                        <span class="skill-tag">PySpark</span>
-                        <span class="skill-tag">Redis</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+                    <div class="proj-body">
+                        <div class="proj-abstract ab">
+                            End-to-end research pipeline for Vision-Language-Action policies targeting tabletop
+                            manipulation. The project spans the full ML development cycle:
+                            <strong>real-robot data collection → cross-dataset training → Isaac Sim evaluation →
+                            sim-to-real feedback iteration</strong>, bridging the LeRobot framework with the
+                            Open-PI dataset for scalable instruction-conditioned robotic control.
+                        </div>
 
-        <section id="education">
-            <div class="section-header">
-                <span class="section-number">04</span>
-                <h2 class="section-title">Education</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="education-grid">
-                <div class="edu-card fade-in">
-                    <h3 class="edu-degree">Master of Electronic & Computer Engineering</h3>
-                    <p class="edu-school">Rice University</p>
-                    <p class="edu-date">Aug 2025 - Dec 2026</p>
-                </div>
-                <div class="edu-card fade-in">
-                    <h3 class="edu-degree">Bachelor of Electronic Information Engineering</h3>
-                    <p class="edu-school">Northwest Minzu University</p>
-                    <p class="edu-date">Sep 2018 - Jun 2022</p>
-                    <p class="edu-achievement">First-class Academic Excellence Scholarship (Rank 1/114)</p>
-                </div>
-            </div>
-        </section>
+                        <div class="pipeline">
+                            <div class="pipe-step">
+                                <div class="pipe-num">01</div>
+                                <div class="pipe-text">
+                                    <h5>Data Collection</h5>
+                                    <p>ROS 2 teleoperation pipeline recording synchronized RGB-D frames,
+                                    proprioceptive states, and language annotations. Custom episode filtering
+                                    and quality validation before dataset ingestion.</p>
+                                </div>
+                            </div>
+                            <div class="pipe-step">
+                                <div class="pipe-num">02</div>
+                                <div class="pipe-text">
+                                    <h5>Training — LeRobot × Open-PI Adaptation</h5>
+                                    <p>Adapted Open-PI dataset format for instruction-conditioned policy training
+                                    within the LeRobot framework. Multi-task training in PyTorch and JAX;
+                                    cross-domain fine-tuning to bridge internet-scale data with lab demonstrations.</p>
+                                </div>
+                            </div>
+                            <div class="pipe-step">
+                                <div class="pipe-num">03</div>
+                                <div class="pipe-text">
+                                    <h5>Evaluation — NVIDIA Isaac Sim Benchmarking</h5>
+                                    <p>Systematic benchmark of open-source VLA models across standardized
+                                    tabletop tasks. Metrics: success rate, trajectory length, latency, and
+                                    language-instruction following accuracy under varied scene configurations.</p>
+                                </div>
+                            </div>
+                            <div class="pipe-step">
+                                <div class="pipe-num">04</div>
+                                <div class="pipe-text">
+                                    <h5>Feedback Iteration — Sim-to-Real Gap Analysis</h5>
+                                    <p>CI-backed architecture with reproducible training/eval scripts. Systematic
+                                    failure-mode analysis from Isaac Sim; targeted data augmentation and
+                                    domain randomization to close the sim-to-real gap iteratively.</p>
+                                </div>
+                            </div>
+                        </div>
 
-        <section id="honors">
-            <div class="section-header">
-                <span class="section-number">05</span>
-                <h2 class="section-title">Honors & Awards</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="honors-list">
-                <div class="honor-item fade-in">
-                    <div class="honor-icon">🏆</div>
-                    <div class="honor-text">
-                        <h4>1st Prize, 12th Lanqiao Cup National Software & IT Competition</h4>
-                        <span>Top 0.5% • July 2021</span>
+                        <div class="proj-tech">
+                            <span class="tech-tag">LeRobot</span>
+                            <span class="tech-tag">Open-PI</span>
+                            <span class="tech-tag">NVIDIA Isaac Sim</span>
+                            <span class="tech-tag">ROS 2</span>
+                            <span class="tech-tag">PyTorch</span>
+                            <span class="tech-tag">JAX</span>
+                            <span class="tech-tag">RT-1 / RT-2</span>
+                            <span class="tech-tag">OpenVLA</span>
+                            <span class="tech-tag">Domain Randomization</span>
+                            <span class="tech-tag">CI Pipeline</span>
+                        </div>
                     </div>
                 </div>
-                <div class="honor-item fade-in">
-                    <div class="honor-icon">🎓</div>
-                    <div class="honor-text">
-                        <h4>First-class Academic Excellence Scholarship</h4>
-                        <span>Rank 1/114 • Fall 2020</span>
-                    </div>
-                </div>
             </div>
-        </section>
 
-        <section id="contact">
-            <div class="contact-content">
-                <h2>Let's <span class="highlight">Connect</span></h2>
-                <p>
-                    I'm always interested in discussing robotics research, AI systems, 
-                    and potential collaborations. Feel free to reach out!
+            <!-- Contact -->
+            <div id="contact" class="fi">
+                <div class="sec-head">
+                    <span class="sec-num">06</span>
+                    <h2 class="sec-title">Contact</h2>
+                    <div class="sec-rule"></div>
+                </div>
+                <p style="font-size:.9rem;color:var(--text2);margin-bottom:1rem;">
+                    Open to research collaborations, lab discussions, and opportunities in robotics &amp; AI.
                 </p>
                 <div class="contact-links">
-                    <a href="mailto:qm18@rice.edu" class="contact-link">
-                        <span>✉</span> qm18@rice.edu
-                    </a>
-                    <a href="tel:+13464383210" class="contact-link">
-                        <span>☎</span> (346) 438-3210
-                    </a>
+                    <a href="/cdn-cgi/l/email-protection#344559050c74465d57511a515041" class="clink">✉ <span class="__cf_email__" data-cfemail="88f9e5b9b0c8fae1ebeda6edecfd">[email&#160;protected]</span></a>
+                    <a href="tel:+13464383210" class="clink">☎ (346) 438-3210</a>
                 </div>
             </div>
-        </section>
-    </main>
 
-    <footer>
-        <p>© 2025 Maxwell Ma. Built with passion for robotics.</p>
-    </footer>
+        </div><!-- /left -->
 
-    <script>
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-        }, observerOptions);
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-        });
-    </script>
-</body>
-</html>
+        <!-- ═══ RIGHT ═══ -->
+        <div class="col">
+
+            <!-- Demo Video -->
+            <div id="demo" class="fi">
+                <div class="sec-head">
+                    <span class="sec-num">02</span>
+                    <h2 class="sec-title">Work Demonstration</h2>
+                    <div class="sec-rule"></div>
+                </div>
+                <div class="demo-wrap">
+                    <div class="video-box" id="vbox">
+                        <!--
+                            ⚠️  Run in your repo folder:
+                            cp ~/Videos/Screencasts/first_vla_demonstration.webm ./first_vla_demonstration.webm
+                        -->
+                        <video controls preload="metadata" id="demovid"
+                            onerror="document.getElementById('vbox').innerHTML='<div class=vid-placeholder><div class=icon>🎬</div><p>Copy video next to index.html:</p><code>first_vla_demonstration.webm</code></div>'">
+                            <source src="first_vla_demonstration.webm" type="video/webm">
+                        </video>
+                        <div class="vid-chip">▶ VLA DEMO</div>
+                    </div>
+                    <div class="demo-meta">
+                        <h4>First VLA Demonstration — Tabletop Manipulation</h4>
+                        <p>
+                            Instruction-conditioned policy (LeRobot + Open-PI) executing pick-and-place
+                            in NVIDIA Isaac Sim, deployed over a ROS 2 action server.
+                        </p>
+                        <div class="demo-tags">
+                            <span class="dtag">LeRobot</span>
+                            <span class="dtag">Open-PI</span>
+                            <span class="dtag">Isaac Sim</span>
+                            <span class="dtag">ROS 2</span>
+                            <span class="dtag">PyTorch</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Industry Experience -->
+            <div id="experience" class="fi">
+                <div class="sec-head">
+                    <span class="sec-num">03</span>
+                    <h2 class="sec-title">Industry Experience</h2>
+                    <div class="sec-rule"></div>
+                </div>
+                <div class="exp-list">
+                    <div class="exp">
+                        <div class="exp-top">
+                            <h3>Senior Strategy AI Algorithm Engineer</h3>
+                            <div class="exp-date">Sep 2022 – Aug 2025<br>Beijing, China</div>
+                        </div>
+                        <div class="exp-co">Baidu</div>
+                        <div class="exp-bullets">
+                            <div class="eb">Full training stack: domain-adaptive pre-training → SFT → RLHF (PPO) with comprehensive evaluation harness for legal-domain LLM</div>
+                            <div class="eb">RAG pipeline — vector retrieval + semantic rerank + hybrid BM25: +60% answer quality, −80% p95 latency</div>
+                            <div class="eb">Led cross-functional pod (infra, data, legal SMEs) from design docs through weekly A/B reviews and KPI tracking</div>
+                            <div class="eb">Production-scale deployment via streaming indexing, caching, and quantization</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills -->
+            <div id="skills" class="fi">
+                <div class="sec-head">
+                    <span class="sec-num">04</span>
+                    <h2 class="sec-title">Skills</h2>
+                    <div class="sec-rule"></div>
+                </div>
+                <div class="skills-grid">
+                    <div class="sk-row">
+                        <div class="sk-label">Robotics & Planning</div>
+                        <div class="sk-tags">
+                            <span class="st">OMPL</span><span class="st">RRT*</span><span class="st">BIT*</span><span class="st">ROS 2</span><span class="st">Isaac Sim</span><span class="st">Franka Panda</span><span class="st">Task-Motion Planning</span><span class="st">PDDL</span>
+                        </div>
+                    </div>
+                    <div class="sk-row">
+                        <div class="sk-label">VLA & Deep Learning</div>
+                        <div class="sk-tags">
+                            <span class="st">LeRobot</span><span class="st">Open-PI</span><span class="st">PyTorch</span><span class="st">JAX</span><span class="st">Transformers</span><span class="st">PPO</span><span class="st">SAC</span><span class="st">Stable-Baselines3</span>
+                        </div>
+                    </div>
+                    <div class="sk-row">
+                        <div class="sk-label">LLM / GenAI</div>
+                        <div class="sk-tags">
+                            <span class="st">Pre-training</span><span class="st">SFT</span><span class="st">RLHF</span><span class="st">DPO</span><span class="st">RAG</span><span class="st">FAISS</span><span class="st">LangChain</span>
+                        </div>
+                    </div>
+                    <div class="sk-row">
+                        <div class="sk-label">Languages & Infra</div>
+                        <div class="sk-tags">
+                            <span class="st">C++</span><span class="st">Python</span><span class="st">CUDA</span><span class="st">Bash</span><span class="st">Docker</span><span class="st">AWS</span><span class="st">FastAPI</span><span class="st">TensorRT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education & Honors -->
+            <div id="education" class="fi">
+                <div class="sec-head">
+                    <span class="sec-num">05</span>
+                    <h2 class="sec-title">Education & Honors</h2>
+                    <div class="sec-rule"></div>
+                </div>
+                <div class="edu-list">
+                    <div class="edu">
+                        <div class="edu-deg">Master of Electronic & Computer Engineering</div>
+                        <div class="edu-school">Rice University</div>
+                        <div class="edu-date">Aug 2025 – Dec 2026</div>
+                    </div>
+                    <div class="edu">
+                        <div class="edu-deg">Bachelor of Electronic Information Engineering</div>
+                        <div class="edu-school">Northwest Minzu University</div>
+                        <div class="edu-date">Sep 2018 – Jun 2022</div>
+                        <div class="edu-note">First-class Academic Excellence Scholarship (Rank 1/114)</div>
+                    </div>
+                </div>
+                <div class="honors">
+                    <div class="honor">
+                        <div class="h-icon">🏆</div>
+                        <div>
+                            <div class="h-title">1st Prize · 12th Lanqiao Cup National Competition</div>
+                            <div class="h-sub">Top 0.5% · July 2021</div>
+                        </div>
+                    </div>
+                    <div class="honor">
+                        <div class="h-icon">🎓</div>
+                        <div>
+                            <div class="h-title">First-class Academic Excellence Scholarship</div>
+                            <div class="h-sub">Rank 1/114 · Fall 2020</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /right -->
+
+    </div><!-- /body-grid -->
+</div><!-- /wrap -->
+</main>
+
+<footer>
+    © 2025 Maxwell Ma &nbsp;·&nbsp; Rice University, Houston TX &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6918045851291b000a0c470c0d1c">[email&#160;protected]</a>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    const io = new IntersectionObserver(
+        es => es.forEach(e => { if(e.isIntersecting
