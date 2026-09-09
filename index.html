@@ -17,13 +17,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/desk.css">
 <script>
   // Apply saved theme before first paint to avoid a flash.
   try { var t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t); } catch (e) {}
 </script>
+<script type="importmap">
+{ "imports": { "three": "./assets/vendor/three.module.min.js", "three/addons/": "./assets/vendor/" } }
+</script>
 </head>
 <body>
-<canvas id="bg-canvas" aria-hidden="true"></canvas>
 <div class="bg-grid" aria-hidden="true"></div>
 <div class="progress" id="progress" aria-hidden="true"></div>
 
@@ -45,18 +48,38 @@
 <div class="mobile-menu" id="mobile-menu"></div>
 
 <div class="page" id="top">
-  <div class="wrap">
 
-    <!-- HERO -->
-    <header class="hero" id="home">
-      <div>
+  <!-- HERO: 3D desk -->
+  <header class="hero hero-3d" id="home">
+    <div class="desk-stage" id="desk-stage">
+      <canvas id="desk-canvas" aria-label="Interactive 3D desk" role="img"></canvas>
+      <div class="desk-loading" id="desk-loading"><i></i><span>Loading 3D…</span></div>
+      <div class="desk-overlay">
         <div class="eyebrow" id="hero-eyebrow"></div>
         <h1 id="hero-title"></h1>
         <div class="typer" aria-live="polite"><span class="prompt">&gt;</span><span id="typer-text"></span><span class="cursor" aria-hidden="true"></span></div>
         <p class="lead" id="hero-lead"></p>
         <div class="cta" id="hero-cta"></div>
-        <div class="stats" id="hero-stats"></div>
       </div>
+      <div class="desk-tip" id="desk-tip" hidden></div>
+      <div class="desk-bottom">
+        <div class="desk-legend" id="desk-legend" role="group" aria-label="Desk objects"></div>
+        <div class="desk-hint" id="desk-hint"></div>
+      </div>
+      <aside class="desk-panel" id="desk-panel" hidden aria-live="polite">
+        <div class="desk-panel-head">
+          <button class="desk-back" id="desk-back" type="button">← Back</button>
+          <span class="desk-panel-esc"><kbd>Esc</kbd></span>
+        </div>
+        <div class="desk-panel-content" id="desk-panel-content"></div>
+      </aside>
+    </div>
+    <div id="desk-videos" aria-hidden="true"></div>
+  </header>
+
+  <div class="wrap">
+    <!-- ABOUT STRIP -->
+    <div class="about-strip reveal" id="about">
       <aside class="hero-card" id="hero-card">
         <div class="avatar-wrap">
           <img class="avatar" src="assets/img/avatar.jpg" alt="Qinzhen Ma" width="88" height="88">
@@ -68,8 +91,11 @@
         </div>
         <div class="facts" id="hero-facts"></div>
       </aside>
-      <div class="scroll-hint" aria-hidden="true"><span id="scroll-hint-text"></span><i></i></div>
-    </header>
+      <div>
+        <p class="lead" id="about-lead"></p>
+        <div class="stats" id="hero-stats"></div>
+      </div>
+    </div>
 
     <!-- STARTUP -->
     <section class="block reveal" id="startup">
@@ -121,6 +147,8 @@
     <section class="block reveal" id="projects">
       <div class="sh"><span class="n" id="pj-num"></span><h2 id="pj-title"></h2><div class="rule"></div></div>
       <p class="lead" id="pj-lead"></p>
+      <h3 class="side-title" id="demo-title" style="margin-top:0"></h3>
+      <div class="demo-grid" id="demo-grid"></div>
       <div class="pgrid" id="pgrid"></div>
     </section>
 
@@ -159,5 +187,6 @@
 
 <script src="assets/js/content.js"></script>
 <script src="assets/js/main.js"></script>
+<script type="module" src="assets/js/desk.js"></script>
 </body>
 </html>

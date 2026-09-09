@@ -17,6 +17,13 @@ window.SITE = {
     avatar: "assets/img/avatar.jpg"
   },
 
+  videos: [
+    { id: "dual", file: "assets/media/dual_arm_pick_place.mp4", poster: "assets/media/dual_arm_pick_place.jpg", type: "video/mp4" },
+    { id: "a2", file: "assets/media/originx_a2_piper_outdoor.mp4", poster: "assets/media/originx_a2_piper_outdoor.jpg", type: "video/mp4" },
+    { id: "fold", file: "assets/media/lehome_fold_clothes.webm", poster: "assets/media/lehome_fold_clothes.jpg", type: "video/webm" }
+  ],
+  defaultVideo: "dual",
+
   zh: {
     meta: { title: "马沁桢 | 具身智能 · OriginX 创始人", lang: "zh-CN" },
     nav: {
@@ -217,8 +224,7 @@ window.SITE = {
           desc:
             "覆盖完整研发周期：ROS 2 遥操作采集同步 RGB-D / 本体状态 / 语言标注 → 适配 Open-PI 数据格式做多任务训练（PyTorch / JAX）→ Isaac Sim 标准化评测（成功率、轨迹长度、延迟、指令遵循）→ 失败模式分析与域随机化迭代。",
           chips: ["LeRobot", "Open-PI", "Isaac Sim", "OpenVLA", "域随机化"],
-          tags: ["vla", "lerobot", "isaacsim", "ros2", "jax", "sim2real"],
-          video: true
+          tags: ["vla", "lerobot", "isaacsim", "ros2", "jax", "sim2real"]
         },
         {
           accent: "mint",
@@ -299,6 +305,30 @@ window.SITE = {
       copy: "复制",
       copied: "已复制",
       open: "打开"
+    },
+    desk: {
+      hint: "点击桌上的物件放大查看 · 按住拖动可环视 · Esc 返回",
+      hintTouch: "点按桌上的物件放大查看 · 左右滑动可环视",
+      back: "返回桌面",
+      scrollMore: "查看完整内容",
+      unsupported: "当前设备不支持 3D 场景，请向下浏览。",
+      videoNote: "视频在显示器上播放，可切换、暂停或开启声音。",
+      play: "播放", pause: "暂停", mute: "静音", unmute: "开启声音",
+      demoTitle: "真机 / 仿真演示",
+      hotspots: {
+        monitor: { label: "真机演示", title: "机器人演示视频", desc: "双臂真机分拣、OriginX A2 户外巡回抓取、LeRobot 叠衣服，三段演示可切换播放。" },
+        duck: { label: "OriginX", title: "创业项目 · OriginX 弦跃星河", desc: "桌上这只小鸭代表 OriginX 首代产品 MicroDuck：世界模型驱动的家庭教育机器人。" },
+        arm: { label: "交付闭环", title: "具身智能交付闭环", desc: "遥操作数采、训练部署、可信评测、生态协同，我负责的四个环节。" },
+        laptop: { label: "研究项目", title: "研究与精选项目", desc: "IROS 2026 投稿、LeRobot × Open-PI 流水线、法行宝、SuperAgent。" },
+        notebook: { label: "简历 · 经历", title: "工作与研究经历", desc: "光轮智能、百度、Rice 两个实验室，可在此下载完整简历。" },
+        books: { label: "教育背景", title: "教育与荣誉", desc: "Rice University ECE 硕士、西北民族大学本科、蓝桥杯全国一等奖。" },
+        phone: { label: "联系我", title: "联系方式", desc: "邮箱、微信、电话、LinkedIn、GitHub。" }
+      },
+      videos: {
+        dual: { title: "双臂真机 · 瓶罐分拣回收", desc: "两台机械臂协同抓取桌面上的饮料瓶并投入回收桶，真机运行。", tags: ["双臂", "真机", "抓取放置"] },
+        a2: { title: "OriginX A2 + Piper X · 户外巡回搜索与抓取", desc: "四足平台搭载 Piper X 机械臂：RGB-D SLAM 建图与 A* 搜索，大范围道路巡回，物理抓取回收瓶罐（无 IK、无瞬移）。", tags: ["四足 + 机械臂", "RGB-D SLAM", "自主抓取"] },
+        fold: { title: "LeRobot · 叠衣服", desc: "指令条件 VLA 策略（LeRobot + Open-PI）执行叠衣服任务。", tags: ["LeRobot", "VLA", "Open-PI"] }
+      }
     },
     footer: {
       text: "© 2026 马沁桢 · Qinzhen Ma",
@@ -506,8 +536,7 @@ window.SITE = {
           desc:
             "Full development cycle: ROS 2 teleoperation recording synchronized RGB-D / proprioception / language annotations → Open-PI format adaptation for multi-task training (PyTorch / JAX) → standardized Isaac Sim benchmarking (success rate, trajectory length, latency, instruction following) → failure-mode analysis with domain randomization.",
           chips: ["LeRobot", "Open-PI", "Isaac Sim", "OpenVLA", "Domain randomization"],
-          tags: ["vla", "lerobot", "isaacsim", "ros2", "jax", "sim2real"],
-          video: true
+          tags: ["vla", "lerobot", "isaacsim", "ros2", "jax", "sim2real"]
         },
         {
           accent: "mint",
@@ -588,6 +617,30 @@ window.SITE = {
       copy: "Copy",
       copied: "Copied",
       open: "Open"
+    },
+    desk: {
+      hint: "Click an object on the desk to zoom in · drag to look around · Esc to go back",
+      hintTouch: "Tap an object on the desk to zoom in · swipe sideways to look around",
+      back: "Back to desk",
+      scrollMore: "See the full section",
+      unsupported: "3D scene is not supported on this device; scroll down to browse.",
+      videoNote: "Videos play on the monitor. Switch, pause, or turn on sound.",
+      play: "Play", pause: "Pause", mute: "Mute", unmute: "Sound on",
+      demoTitle: "Real-robot / simulation demos",
+      hotspots: {
+        monitor: { label: "Demos", title: "Robot demo videos", desc: "Dual-arm sorting on real hardware, OriginX A2 outdoor patrol-and-grasp, LeRobot cloth folding. Switch between the three clips." },
+        duck: { label: "OriginX", title: "Startup · OriginX", desc: "The little duck on the desk stands for MicroDuck, OriginX's first product: a world-model-driven home education robot." },
+        arm: { label: "Delivery loop", title: "Embodied AI delivery loop", desc: "Teleop data collection, training and deployment, trusted evaluation, ecosystem partnerships: the four stages I own." },
+        laptop: { label: "Research", title: "Research & selected projects", desc: "IROS 2026 submission, LeRobot × Open-PI pipeline, Faxingbao, SuperAgent." },
+        notebook: { label: "Résumé", title: "Experience & research", desc: "Lightwheel, Baidu, and two labs at Rice. Download the full résumé here." },
+        books: { label: "Education", title: "Education & honors", desc: "M.S. ECE at Rice, B.E. at Northwest Minzu University, Lanqiao Cup national first prize." },
+        phone: { label: "Contact", title: "Contact", desc: "Email, WeChat, phone, LinkedIn, GitHub." }
+      },
+      videos: {
+        dual: { title: "Dual-arm real robot · bottle sorting", desc: "Two arms cooperatively pick bottles off the bench and drop them into a bin, running on real hardware.", tags: ["Dual-arm", "Real robot", "Pick & place"] },
+        a2: { title: "OriginX A2 + Piper X · outdoor patrol, search & grasp", desc: "Quadruped base with a Piper X arm: RGB-D SLAM mapping with A* search, wide road coverage, physical grasping of bottles (no IK shortcuts, no teleport).", tags: ["Quadruped + arm", "RGB-D SLAM", "Autonomous grasp"] },
+        fold: { title: "LeRobot · fold clothes", desc: "Instruction-conditioned VLA policy (LeRobot + Open-PI) performing a cloth-folding task.", tags: ["LeRobot", "VLA", "Open-PI"] }
+      }
     },
     footer: {
       text: "© 2026 Qinzhen Ma · 马沁桢",

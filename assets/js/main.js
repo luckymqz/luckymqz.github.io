@@ -39,6 +39,7 @@
       $("#ico-sun").hidden = t !== "dark";
       $("#ico-moon").hidden = t === "dark";
     }
+    window.dispatchEvent(new Event("site:theme"));
   }
   const themeQ = new URLSearchParams(location.search).get("theme");
   const initialTheme = (themeQ === "light" || themeQ === "dark") ? themeQ : (store.get("theme") || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"));
@@ -77,7 +78,7 @@
     $("#hero-facts").innerHTML = H.facts.map(([k, v]) => `<div class="fact"><b>${esc(k)}</b><span>${esc(v)}</span></div>`).join("");
     $("#avatar-name").textContent = H.name;
     $("#avatar-role").textContent = H.roles[0];
-    $("#scroll-hint-text").textContent = H.scrollHint;
+    $("#about-lead").textContent = H.lead;
 
     // startup
     const S = T.startup;
@@ -138,6 +139,8 @@
     $("#pj-num").textContent = P.num;
     $("#pj-title").textContent = P.title;
     $("#pj-lead").textContent = P.lead;
+    $("#demo-title").textContent = T.desk.demoTitle;
+    $("#demo-grid").innerHTML = SITE.videos.map((v) => { const vt = T.desk.videos[v.id]; return `<article class="demo"><video controls preload="none" playsinline poster="${v.poster}"><source src="${v.file}" type="${v.type}"></video><div class="db"><b>${esc(vt.title)}</b><p>${esc(vt.desc)}</p><div class="chips">${vt.tags.map((c) => `<span class="chip cyan">${esc(c)}</span>`).join("")}</div></div></article>`; }).join("");
     $("#pgrid").innerHTML = P.items.map((p) => `
       <article class="pcard ${p.accent}" data-tags="${p.tags.join(" ")}">
         ${p.video ? `<div class="vbox" id="vbox"><video id="demo-video" controls preload="metadata" playsinline muted loop><source src="${L.video}" type="video/webm"></video><div class="vlabel">${esc(P.demoLabel)}</div><div class="vfallback">${esc(P.demoFallback)}</div></div>` : ""}
@@ -183,6 +186,7 @@
     observeCounters();
     setupVideo();
     onScroll();
+    window.dispatchEvent(new Event("site:lang"));
   }
 
   /* ---------- typewriter ---------- */
@@ -321,6 +325,7 @@
     const el = $("#toast"); el.textContent = msg; el.classList.add("show");
     clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove("show"), 1800);
   }
+  window.siteToast = toast;
 
   /* ---------- nav: scroll spy, progress, to-top ---------- */
   const sections = () => $$("section.block[id]");
@@ -416,9 +421,10 @@
   document.addEventListener("DOMContentLoaded", () => {
     bindStatic();
     render();
-    initCanvas();
     initTilt();
     startLoopAuto();
     document.body.classList.add("ready");
+    window.SITE_READY = true;
+    window.dispatchEvent(new Event("site:ready"));
   });
 })();
